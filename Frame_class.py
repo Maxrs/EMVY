@@ -83,7 +83,7 @@ class FrameClass:
 
         # The Gcode Editor inside the gcode frame
         self.gcode_content = Text(self.gcode_frame, wrap='word', undo=True)
-        self.gcode_content.config(width=520, height=564, background='#d4d4d4', relief=FLAT)
+        #self.gcode_content.config(width=520, height=564, background='#d4d4d4', relief=FLAT)
         # self.gcode_content.bind('<Control-N>', self.on_content_changed)
         # self.gcode_content.bind('<Control-n>', self.on_content_changed)
         self.gcode_content.pack_propagate(False)
@@ -134,11 +134,11 @@ class FrameClass:
         notebook.pack(fill=BOTH, expand=True)
 
     def canvas(self):
-        self.drawing_canvas = Canvas(self.drawing_frame, bg='#d5d5d5')
-        self.drawing_canvas.config(height=1000, width=1000)
+        self.drawing_canvas = Canvas(self.drawing_frame)
+
         self.drawing_canvas.pack(fill=BOTH, expand=1)
-        self.simulation_canvas = Canvas(self.simulation_frame, bg='#d5d5d5')
-        self.simulation_canvas.config(height=415, width=830)
+        self.simulation_canvas = Canvas(self.simulation_frame)
+        #self.simulation_canvas.config(height=415, width=830, bg='#d5d5d5')
         self.simulation_canvas.pack(fill=BOTH, expand=1)
 
         self.horizontal_bar= ttk.Scrollbar(self.drawing_canvas, orient=HORIZONTAL)

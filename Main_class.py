@@ -16,14 +16,17 @@ class MainClass:
         self.height_size = self.window.winfo_screenheight()
         self.window.geometry('{0}x{1}'.format(self.width_size, self.height_size))
 
-        # pop windows
-        self.pop_windows = windows(self)
 
         # Com port
         self.Com_port = COMports(self)
 
         # The Frame Class
         self.FrameClass_handler = FrameClass(self)
+
+        # pop windows
+        self.pop_windows = windows(self)
+
+
 
         # functionalities
         self.functionalities = Edit(self)
