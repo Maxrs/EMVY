@@ -6,6 +6,7 @@ from tkinter import ttk
 class Edit:
     def __init__(self, main_program):
         self.root = main_program.window
+        self.main_program=main_program
         self.app_name = main_program.app_name
         self.gcode_content = main_program.FrameClass_handler.gcode_content
         self.file_name = None
@@ -58,6 +59,7 @@ class Edit:
             with open(self.file_name) as _file:
                 self.gcode_content.insert(1.0, _file.read())
 
+
     def save_as(self, event= None):
         self.input_file_name = filedialog.asksaveasfilename(defaultextension=".NC", filetypes=[('gcode', ".NC",
                                                                                                 )])
@@ -92,7 +94,9 @@ class Edit:
         self.gcode_content.delete(1.0, END)
 
     def  import_dxf(self, event= None):
-        file_name = filedialog.askopenfilename(defaultextension=".dxf", filetypes=[("dxf file", ".dxf")])
+        self.dxf_file_name=file_name = filedialog.askopenfilename(defaultextension=".dxf", filetypes=[("dxf file", ".dxf")])
+        self.main_program.dxf_master.init_components()
+        self.main_program.dxf_master.test_lines()
 
     def find_text(self,event=None):
         self.search_toplevel = Toplevel(self.root)

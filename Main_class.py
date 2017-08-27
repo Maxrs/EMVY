@@ -5,6 +5,7 @@ from Utils_class import Utils
 from Auto_com_port import COMports
 from Pop_windows import windows
 from Functionalities import Edit
+from dxf_reader import DXF
 
 
 class MainClass:
@@ -25,7 +26,8 @@ class MainClass:
 
         # pop windows
         self.pop_windows = windows(self)
-
+        #class for drawing things on a canvas
+        self.dxf_master=DXF(self)
 
 
         # functionalities
