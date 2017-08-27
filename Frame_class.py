@@ -119,15 +119,12 @@ class FrameClass:
                                                 })],
                                         })]
                      )
-        notebook = ttk.Notebook(self.simulation_frame, height=415, width=830)
+        notebook = ttk.Notebook(self.simulation_frame, height=415, width=400)
         self.simulation_frame = Frame()
         self.simulation_frame.config(height=415, width=500, bg='#d4d4d4')
         self.drawing_frame = Frame()
-        self.hbar = Scrollbar(self.drawing_frame, orient=HORIZONTAL)
-        self.hbar.pack(side=BOTTOM, fill=X)
-        self.drawing_frame.config(height=415, width=830)
+        self.drawing_frame.config(height=415, width=415)
         self.canvas()
-        self.hbar.config(command=self.drawing_canvas.xview)
         self.drawing = PhotoImage(file='icons/dxf.png')
         self.simulation = PhotoImage(file='icons/cnc_machine.png')
         notebook.add(self.drawing_frame, text="Drawing")
@@ -141,7 +138,7 @@ class FrameClass:
 
         self.drawing_canvas.pack(fill=BOTH, expand=1)
         self.simulation_canvas = Canvas(self.simulation_frame)
-        #self.simulation_canvas.config(height=415, width=830, bg='#d5d5d5')
+        self.simulation_canvas.config(height=415, width=300, bg='#d5d5d5')
         self.simulation_canvas.pack(fill=BOTH, expand=1)
 
         self.horizontal_bar= ttk.Scrollbar(self.drawing_canvas, orient=HORIZONTAL)
@@ -152,7 +149,10 @@ class FrameClass:
         self.vertical_bar.pack(side=RIGHT, fill=Y)
         self.vertical_bar.config(command=self.drawing_canvas.yview)
         self.drawing_canvas.configure(yscrollcommand=self.vertical_bar.set)
+        self.drawing_canvas.bind_all("<MouseWheel>",self._on_mousewheel)
 
+    def _on_mousewheel(self, event):
+        self.drawing_canvas.yview_scroll(-1 * (event.delta / 120), "units")
     def refresh_ports(self):
         self.new_value_list = self.COMport_handler.serial_ports()
         self.list_of_comports.config(values=self.new_value_list)

@@ -95,6 +95,7 @@ class Edit:
 
     def  import_dxf(self, event= None):
         self.dxf_file_name=file_name = filedialog.askopenfilename(defaultextension=".dxf", filetypes=[("dxf file", ".dxf")])
+        self.main_program.FrameClass_handler.drawing_canvas.delete('all')
         self.main_program.dxf_master.init_components()
         self.main_program.dxf_master.test_lines()
 
