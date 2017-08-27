@@ -7,7 +7,7 @@ from Pop_windows import windows
 from Functionalities import Edit
 from dxf_reader import DXF
 
-
+import  serial
 class MainClass:
     def __init__(self, window):
         self.window = window
@@ -38,6 +38,8 @@ class MainClass:
 
         # The Menu Class
         self.MenuClass_handler = MenuClass(self)
+        self.serial_port=serial.Serial()
+        self.FrameClass_handler.enable_combo()
 
 
 

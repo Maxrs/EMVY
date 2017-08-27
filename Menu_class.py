@@ -5,6 +5,7 @@ class MenuClass:
     def __init__(self,main_program):
         self.gcode_content = main_program.FrameClass_handler.gcode_content
         self.root =main_program.window
+        self.main_program=main_program
         self.frameclasshandler = main_program.FrameClass_handler
         self.functionalities_handler = main_program.functionalities
         self.popwindows_handler = main_program.pop_windows
@@ -55,7 +56,7 @@ class MenuClass:
     def machine_menu(self):
         # Machine menu declaration
         self.menu_bar.add_cascade(label='Machine', menu=self.machine)
-        self.machine.add_command(label='Start', compound=LEFT)
+        self.machine.add_command(label='Start', compound=LEFT,command=self.main_program.functionalities.upload_code)
         self.machine.add_command(label='Stop', compound=LEFT)
         self.machine.add_command(label='Pause', compound=LEFT)
         self.machine.add_separator()

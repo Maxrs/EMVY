@@ -1,6 +1,39 @@
-from tkinter import filedialog, END, Toplevel, IntVar
+from tkinter import filedialog, END, Toplevel, IntVar,messagebox
+import serial
 import os
 from tkinter import ttk
+GCODES=[]
+CURRENT_LINE=[]
+import serial
+from  tkinter import  *
+import  threading
+def send_gcode(ser,context_text):
+    '''Method for sending Gcode to the Arduino'''
+    ser.write('C-90'.encode('utf-8'))
+    print("initializing codes")
+    sent_commands=0
+    while sent_commands<len(GCODES):
+        x=" "
+        try:
+
+            reply=ser.readline()
+            reply=reply.decode()
+            print(len(reply))
+            print("reply for serial {}".format(reply))
+            for code in GCODES:
+                if code[0] in reply:
+                    global GCODE_LINE
+                    GCODE_LINE=int(code[0][1:])
+
+                    ser.write(code[1].encode('utf-8'))
+                    sent_commands+=1
+                    print("code sent is {}".format(code))
+        except Exception:
+
+
+             print("problem with  serialport")
+             break;
+
 
 
 class Edit:
@@ -130,3 +163,30 @@ class Edit:
             gcode_content.tag_config('match', foreground='red', background='yellow')
         search_box.focus_set()
         search_toplevel.title('{} matches found'.format(matches_found))
+    def connect_serial(self,port):
+         try:
+          self.main_program.serial_port=serial.Serial(port,9600)
+         except Exception:
+             messagebox.showwarning(title='COMPORT',message="comport failed to connect")
+    def upload_code(self):
+        text2 =self.main_program.FrameClass_handler.gcode_content.get("1.0", END)
+        global GCODES
+        commands = text2.split('\n')
+        for command in range(len(commands) - 1):
+            if command == "" or command == " ":
+                commands.remove(command)
+
+        print(commands)
+        GCODES = []
+        size = len(commands)
+        for x in range(size):
+            GCODES.append(("C{0:04}".format(x), commands[x]))
+        print(GCODES)
+        if self.main_program.serial_port.is_open:
+            send_thread = threading.Thread(target=send_gcode, args=[self.main_program.serial_port, self.main_program.FrameClass_handler.gcode_content],
+                            daemon=True)
+            send_thread.start()
+        else :
+            messagebox.showwarning(title='upload_failure',message='sorry the com port was not available prease check if the usb is connected or another programm is using it')
+
+

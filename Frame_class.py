@@ -4,6 +4,7 @@ from tkinter import ttk
 class FrameClass:
     def __init__(self, main):
         self.root =main.window
+        self.main_program=main
         self.COMport_handler = main.Com_port
         self.shortcut()
         self.the_panned_windows()
@@ -50,8 +51,10 @@ class FrameClass:
 
         # The COM port values in the combobox
         self.value_list = self.COMport_handler.serial_ports()
-        self.list_of_comports = ttk.Combobox(self.com_port_frame, width=10, values=self.value_list)
+        self.list_of_comports = ttk.Combobox(self.com_port_frame, width=10, values=self.value_list) #command=lambda  :
         self.list_of_comports.pack(side=LEFT, padx=10)
+
+
 
         # Refresh button
         self.refresh_button = Button(self.com_port_frame)
@@ -106,8 +109,12 @@ class FrameClass:
         self.notification_frame = Frame(self.right_pane_window)
         self.notification_frame.config(height=252, width=830, bg='#ffffff')
         self.right_pane_window.add(self.notification_frame)
-
+    def enable_combo(self):
+        self.list_of_comports.bind('<<ComboboxSelected>>', self.on_selected)
         # scroll bar
+
+    def on_selected(self,event):
+        self.main_program.functionalities.connect_serial(self.list_of_comports.get())
 
     def tab_window(self):
         style = ttk.Style()
@@ -119,9 +126,9 @@ class FrameClass:
                                                 })],
                                         })]
                      )
-        notebook = ttk.Notebook(self.simulation_frame, height=415, width=400)
+        notebook = ttk.Notebook(self.simulation_frame, height=500, width=500)
         self.simulation_frame = Frame()
-        self.simulation_frame.config(height=415, width=500, bg='#d4d4d4')
+        self.simulation_frame.config(height=500, width=500, bg='#d4d4d4')
         self.drawing_frame = Frame()
         self.drawing_frame.config(height=415, width=415)
         self.canvas()
@@ -135,7 +142,7 @@ class FrameClass:
 
     def canvas(self):
         self.drawing_canvas = Canvas(self.drawing_frame)
-
+        self.drawing_canvas.config(scrollregion=(0,0,2000,2000))
         self.drawing_canvas.pack(fill=BOTH, expand=1)
         self.simulation_canvas = Canvas(self.simulation_frame)
         self.simulation_canvas.config(height=415, width=300, bg='#d5d5d5')
