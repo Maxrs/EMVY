@@ -90,7 +90,7 @@ class FrameClass:
         # self.gcode_content.bind('<Control-N>', self.on_content_changed)
         # self.gcode_content.bind('<Control-n>', self.on_content_changed)
         self.gcode_content.pack_propagate(False)
-        self.gcode_content.pack(side=LEFT, fill=BOTH)
+        self.gcode_content.pack(side=LEFT, fill=BOTH, expand=1)
         self.gcode_content.bind('<Any-KeyPress>', self.on_content_changed)
 
         # scroll bar
@@ -166,7 +166,7 @@ class FrameClass:
 
     def get_line_numbers(self):
         output = ''
-        row = self.gcode_content.index("end".split('.'))
+        row = self.gcode_content.index("end")
         for i in range(1, int(float(row))):
             output += str(i) + '\n'
         return output

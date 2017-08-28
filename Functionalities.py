@@ -66,18 +66,22 @@ class Edit:
 
     def cut(self, event=None):
         self.gcode_content.event_generate("<<Cut>>")
+        self.main_program.FrameClass_handler.on_content_changed()
 
     def copy(self, event=None):
         self.gcode_content.event_generate("<<Copy>>")
 
     def paste(self, event=None):
         self.gcode_content.event_generate("<<Paste>>")
+        self.main_program.FrameClass_handler.on_content_changed()
 
     def undo(self, event=None):
         self.gcode_content.event_generate("<<Undo>>")
+        self.main_program.FrameClass_handler.on_content_changed()
 
     def redo(self, event=None):
         self.gcode_content.event_generate("<<Redo>>")
+        self.main_program.FrameClass_handler.on_content_changed()
 
     def select_all(self, event=None):
         self.gcode_content.tag_add('sel', '1.0', 'end')
@@ -91,6 +95,7 @@ class Edit:
             self.gcode_content.delete(1.0, END)
             with open(self.file_name) as _file:
                 self.gcode_content.insert(1.0, _file.read())
+            self.main_program.FrameClass_handler.on_content_changed()
 
 
     def save_as(self, event= None):

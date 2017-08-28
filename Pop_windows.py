@@ -18,10 +18,10 @@ class windows:
         #self.updat()
 
         #preference manager
-        self.gcode_content.config(width=520, height=564, bg=self.getnew('background1'), relief=FLAT,font=(self.getfont('font'),12,self.getfont('font1')))
-        self.shortcut_bar_frame.config(bg=self.getnew('background2'), height=25, width=self.root.winfo_screenwidth(), relief=SUNKEN)
-        self.drawing_canvas.config(height=1000, width=1000, bg=self.getnew('background3'))
-        self.simulation_canvas.config(height=415, width=830, bg=self.getnew('background3'))
+        self.gcode_content.config(bg=self.getnew('background1'), font=(self.getfont('font'),12,self.getfont('font1')))
+        self.shortcut_bar_frame.config(bg=self.getnew('background2'),width=self.root.winfo_screenwidth())
+        self.drawing_canvas.config(bg=self.getnew('background3'))
+        self.simulation_canvas.config(bg=self.getnew('background3'))
 
     def preference(self):
         self.preference_window = Toplevel(self.root)
@@ -69,7 +69,7 @@ class windows:
         self.drawing_canvas.config(height=1000, width=1000, bg='pink')
         self.simulation_canvas.config(height=415, width=830, bg='pink')
         self.config=ConfigParser()
-        self.config['DEFAULT']={'background1':'light green','fontcolor':'white','background2':'grey','background3':'pink'}
+        self.config['DEFAULT']={'background1':'light green','fontcolor':'white','background2':'red','background3':'pink'}
         self.config['CUSTOM']={'font':'roman'}
 
         with open('config.ini','w') as configfile:
@@ -81,7 +81,7 @@ class windows:
         self.drawing_canvas.config(height=1000, width=1000, bg='gold')
         self.simulation_canvas.config(height=415, width=830, bg='gold')
         config=ConfigParser()
-        config['DEFAULT']={'background1':'brown','fontcolor':'red','background2':'brown','background3':'gold'}
+        config['DEFAULT']={'background1':'brown','fontcolor':'red','background2':'indigo','background3':'gold'}
         config['CUSTOM']={'font':'arial'}
 
         with open('config.ini','w') as configfile:
@@ -90,12 +90,10 @@ class windows:
 
     def updat(self):
         config=ConfigParser()
-        config['DEFAULT']={'background1':'light green','fontcolor':'red','background2':'brown','background3':'gold'}
+        config['DEFAULT']={'background1':'light green','fontcolor':'red','background2':'idigo','background3':'gold'}
         config['CUSTOM']={'font':'arial'}
         with open('configfont.ini','w') as configfile:
             config.write(configfile)
-
-
 
 
     def getnew(self,parm):
