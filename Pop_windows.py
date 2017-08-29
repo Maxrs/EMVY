@@ -64,10 +64,9 @@ class windows:
         self.preference_window.transient(self.root)
         self.preference_window.resizable(False, False)
         self.preference_window.grid_propagate()
-#background label
+#background label comb
         self.text = Label(self.preference_window, text="THEMES",bg='dark blue', font=('sans serif',12,'bold'))
         self.text.grid(row=0,column=1)
-    #combobox
         self.box_value = StringVar()
         self.box = ttk.Combobox(self.preference_window, textvariable=self.box_value)
         self.box.bind("<<ComboboxSelected>>", self.newselection)
