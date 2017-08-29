@@ -60,30 +60,75 @@ class windows:
     def preference(self):
         self.preference_window = Toplevel(self.root,bg='dark blue')
         self.preference_window.title('Preferences')
-        self.preference_window.geometry('200x189+400+200')
+        self.preference_window.geometry('200x120+400+200')
         self.preference_window.transient(self.root)
         self.preference_window.resizable(False, False)
         self.preference_window.grid_propagate()
-#background
+#background label
         self.text = Label(self.preference_window, text="THEMES",bg='dark blue', font=('sans serif',12,'bold'))
         self.text.grid(row=0,column=1)
-        self.defaul = Button(self.preference_window,text='DEFAULT',bg='dark blue',command=self.defaultback,padx=10,pady=10)
-        self.defaul.grid(row=2,column=1)
-        self.clasic = Button(self.preference_window,text='  CLASIC  ',bg='dark green',command=self.clasicback,padx=10,pady=10)
-        self.clasic.grid(row=4,column=1)
-        self.emvthem = Button(self.preference_window,text='   EMVY   ',bg='indigo',command=self.emvback,padx=10,pady=10)
-        self.emvthem.grid(row=6,column=1)
-#font
+    #combobox
+        self.box_value = StringVar()
+        self.box = ttk.Combobox(self.preference_window, textvariable=self.box_value)
+        self.box.bind("<<ComboboxSelected>>", self.newselection)
+        self.box['values'] = ('DEFAULT', 'CLASIC', 'EMVI ')
+        self.box.current(0)
+        self.box.grid(column=1, row=1,pady=0)
+        self.box.config(width=8)
+        self.Apply= Button(self.preference_window,text='SAVE',bg='indigo',command=lambda :[self.ok(),self.okfont()],padx=10)
+        self.Apply.grid(row=6,column=1,padx=10,pady=30)
+
+
+        #fontcombo
+        self.box_value1 = StringVar()
+        self.box1 = ttk.Combobox(self.preference_window, textvariable=self.box_value1)
+        self.box1.bind("<<ComboboxSelected>>", self.newselectionf)
+        self.box1['values'] = ('DEFAULT', 'CLASIC', 'EMVI')
+        self.box1.current(0)
+        self.box1.grid(column=8, row=1,pady=0)
+        self.box1.config(width=8)
+
+
+    #font
         self.text = Label(self.preference_window,bg='dark blue', text="FONT",font=('sans serif',12,'bold'))
         self.text.grid(row=0,column=8)
-        self.defaulfont = Button(self.preference_window,text='DEFAULTFONT',bg='dark blue',command=self.defaultfont3,padx=10,pady=10)
-        self.defaulfont.grid(row=2,column=8)
-        self.clasicfont = Button(self.preference_window,text='  CLASIC FONT ',bg='dark green',command=self.defaultfont1,padx=10,pady=10)
-        self.clasicfont.grid(row=4,column=8,pady=10)
-        self.emvthemfont = Button(self.preference_window,text='   EMVY FONT  ',bg='indigo',command=self.defaultfont2,padx=10,pady=10)
-        self.emvthemfont.grid(row=6,column=8,padx=10)
 
-#Background function
+
+ #COMBOBOX FUNCTION
+    def newselection(self, event):
+        self.value_of_combo = self.box.get()
+
+
+    def ok(self):
+
+        if self.box.get()=='DEFAULT':
+            self.defaultback()
+        elif self.box.get()=='CLASIC':
+            self.clasicback()
+        else:
+            self.emvback()
+    #fontcomb0
+    def newselectionf(self, event):
+        self.value_of_combo1 = self.box1.get()
+
+
+    def okfont(self):
+
+        if self.box1.get()=='DEFAULT':
+            self.defaultfont3()
+        elif self.box1.get()=='CLASIC':
+            self.defaultfont1()
+        else:
+            self.defaultfont2()
+
+
+
+
+
+
+
+
+            #Background function
     def defaultback(self):
         self.gcode_content.config(bg='#d4d4d4',fg='black')
         self.shortcut_bar_frame.config(bg='#424242', height=25, width=self.root.winfo_screenwidth(), relief=SUNKEN)
