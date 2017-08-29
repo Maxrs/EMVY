@@ -24,8 +24,10 @@ class MainClass:
         # The Frame Class
         self.FrameClass_handler = FrameClass(self)
 
-        # pop windows
-        self.pop_windows = windows(self)
+
+
+
+
         #class for drawing things on a canvas
         self.dxf_master=DXF(self)
 
@@ -33,8 +35,12 @@ class MainClass:
         # functionalities
         self.functionalities = Edit(self)
 
+
         # The Utils Class
         self.utils_handler = Utils(self)
+
+        #pop window
+        self.pop_windows = windows(self)
 
         # The Menu Class
         self.MenuClass_handler = MenuClass(self)

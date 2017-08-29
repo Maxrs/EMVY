@@ -15,39 +15,73 @@ class windows:
         self.shortcut_bar_frame=main_program.FrameClass_handler.shortcut_bar_frame
         self.drawing_canvas=main_program.FrameClass_handler.drawing_canvas
         self.simulation_canvas=main_program.FrameClass_handler.simulation_canvas
+        self.main_pane_window=main_program.FrameClass_handler.main_pane_window
+        self.left_pane_window=main_program.FrameClass_handler.left_pane_window
+        self.com_port_frame=main_program.FrameClass_handler.com_port_frame
+        self.title_frame=main_program.FrameClass_handler.title_frame
+        self.title=main_program.FrameClass_handler.title
+        self.line_bar=main_program.FrameClass_handler.line_bar
+        self.port_label=main_program.FrameClass_handler.port_label
+        self.refresh_button=main_program.FrameClass_handler.refresh_button
+        self.open_btn=main_program.utils_handler.open_btn
+        self.saveas_btn=main_program.utils_handler.saveas_btn
+        self.save_btn=main_program.utils_handler.save_btn
+        self.copy_btn=main_program.utils_handler.copy_btn
+        self.paste_btn=main_program.utils_handler.paste_btn
+        self.cut_btn=main_program.utils_handler.cut_btn
+        self.undo_btn=main_program.utils_handler.undo_btn
+        self.redo_btn=main_program.utils_handler.redo_btn
+
+
         #self.updat()
 
         #preference manager
-        self.gcode_content.config(bg=self.getnew('background1'), font=(self.getfont('font'),12,self.getfont('font1')))
-        self.shortcut_bar_frame.config(bg=self.getnew('background2'),width=self.root.winfo_screenwidth())
-        self.drawing_canvas.config(bg=self.getnew('background3'))
-        self.simulation_canvas.config(bg=self.getnew('background3'))
+        self.gcode_content.config(width=520, height=564, bg=self.getnew('background1'), relief=FLAT,font=(self.getfont('font'),12,self.getfont('font1')))
+        self.shortcut_bar_frame.config(bg=self.getnew('background2'), height=25, width=self.root.winfo_screenwidth(), relief=SUNKEN)
+        self.drawing_canvas.config(height=1000, width=1000, bg=self.getnew('background3'))
+        self.simulation_canvas.config(height=415, width=830, bg=self.getnew('background3'))
+        self.main_pane_window.config(bg=self.getnew('background4'))
+        self.left_pane_window.config(bg=self.getnew('background5'))
+        self.com_port_frame.config(bg=self.getnew('background6'))
+        self.title_frame.config(bg=self.getnew('background7'))
+        self.title.config(background=self.getnew('background8'))
+        self.line_bar.config(background=self.getnew('background9'))
+        self.port_label.config(foreground='white', background=self.getnew('background10'))
+        self.refresh_button.config(bg=self.getnew('background10'))
+        self.open_btn.config(bg=self.getnew('background2'))
+        self.saveas_btn.config(bg=self.getnew('background2'))
+        self.save_btn.config(bg=self.getnew('background2'))
+        self.copy_btn.config(bg=self.getnew('background2'))
+        self.paste_btn.config(bg=self.getnew('background2'))
+        self.cut_btn.config(bg=self.getnew('background2'))
+        self.undo_btn.config(bg=self.getnew('background2'))
+        self.redo_btn.config(bg=self.getnew('background2'))
 
     def preference(self):
-        self.preference_window = Toplevel(self.root)
+        self.preference_window = Toplevel(self.root,bg='dark blue')
         self.preference_window.title('Preferences')
-        self.preference_window.geometry('200x100+400+200')
+        self.preference_window.geometry('200x189+400+200')
         self.preference_window.transient(self.root)
         self.preference_window.resizable(False, False)
         self.preference_window.grid_propagate()
 #background
-        self.text = Label(self.preference_window, text="THEMES")
+        self.text = Label(self.preference_window, text="THEMES",bg='dark blue', font=('sans serif',12,'bold'))
         self.text.grid(row=0,column=1)
-        self.defaul = Button(self.preference_window,text='DEFAULT',bg='dark blue',command=self.defaultback)
+        self.defaul = Button(self.preference_window,text='DEFAULT',bg='dark blue',command=self.defaultback,padx=10,pady=10)
         self.defaul.grid(row=2,column=1)
-        self.clasic = Button(self.preference_window,text='  CLASIC  ',bg='dark green',command=self.clasicback)
+        self.clasic = Button(self.preference_window,text='  CLASIC  ',bg='dark green',command=self.clasicback,padx=10,pady=10)
         self.clasic.grid(row=4,column=1)
-        self.emvthem = Button(self.preference_window,text='   EMVY   ',bg='indigo',command=self.emvback)
+        self.emvthem = Button(self.preference_window,text='   EMVY   ',bg='indigo',command=self.emvback,padx=10,pady=10)
         self.emvthem.grid(row=6,column=1)
 #font
-        self.text = Label(self.preference_window, text="FONT")
+        self.text = Label(self.preference_window,bg='dark blue', text="FONT",font=('sans serif',12,'bold'))
         self.text.grid(row=0,column=8)
-        self.defaulfont = Button(self.preference_window,text='DEFAULTFONT',bg='dark blue',command=self.defaultfont3)
+        self.defaulfont = Button(self.preference_window,text='DEFAULTFONT',bg='dark blue',command=self.defaultfont3,padx=10,pady=10)
         self.defaulfont.grid(row=2,column=8)
-        self.clasicfont = Button(self.preference_window,text='  CLASIC FONT ',bg='dark green',command=self.defaultfont1)
-        self.clasicfont.grid(row=4,column=8)
-        self.emvthemfont = Button(self.preference_window,text='   EMVY FONT  ',bg='indigo',command=self.defaultfont2)
-        self.emvthemfont.grid(row=6,column=8)
+        self.clasicfont = Button(self.preference_window,text='  CLASIC FONT ',bg='dark green',command=self.defaultfont1,padx=10,pady=10)
+        self.clasicfont.grid(row=4,column=8,pady=10)
+        self.emvthemfont = Button(self.preference_window,text='   EMVY FONT  ',bg='indigo',command=self.defaultfont2,padx=10,pady=10)
+        self.emvthemfont.grid(row=6,column=8,padx=10)
 
 #Background function
     def defaultback(self):
@@ -55,21 +89,57 @@ class windows:
         self.shortcut_bar_frame.config(bg='#424242', height=25, width=self.root.winfo_screenwidth(), relief=SUNKEN)
         self.drawing_canvas.config(height=1000, width=1000, bg='#d5d5d5')
         self.simulation_canvas.config(height=415, width=830, bg='#d4d4d4')
+        self.main_pane_window.config(bg='#424242')
+        self.com_port_frame.config(bg='#424242')
+        self.left_pane_window.config(bg='#424242')
+        self.title_frame.config(bg='#05a8f7')
+        self.title.config(background='#05a8f7')
+        self.line_bar.config(background='#6e6e6e')
+        self.port_label.config(foreground='white', background='#424242')
+        self.refresh_button.config(bg='#424242')
+        self.open_btn.config(bg='#424242')
+        self.open_btn.config(bg='#424242')
+        self.saveas_btn.config(bg='#424242')
+        self.save_btn.config(bg='#424242')
+        self.copy_btn.config(bg='#424242')
+        self.paste_btn.config(bg='#424242')
+        self.cut_btn.config(bg='#424242')
+        self.undo_btn.config(bg='#424242')
+        self.redo_btn.config(bg='#424242')
+
 
         self.config=ConfigParser()
-        self.config['DEFAULT']={'background1':'#d4d4d4','fontcolor':'black','background2':'#424242','background3':'#d5d5d5'}
+        self.config['DEFAULT']={'background1':'#d4d4d4','background10':'#424242','fontcolor':'black','background9':'#6e6e6e','background2':'#424242','background8':'#05a8f7','background7':'#05a8f7','background3':'#d5d5d5','background5':'#424242','background4':'#424242','background6':'#424242'}
         with open('config.ini','w') as configfile:
             self.config.write(configfile)
 
 
 
     def clasicback(self):
-        self.gcode_content.config(bg='light green',fg='white')
-        self.shortcut_bar_frame.config(bg='red', height=25, width=self.root.winfo_screenwidth(), relief=SUNKEN)
-        self.drawing_canvas.config(height=1000, width=1000, bg='pink')
-        self.simulation_canvas.config(height=415, width=830, bg='pink')
+        self.gcode_content.config(bg='navajowhite4',fg='white')
+        self.shortcut_bar_frame.config(bg='lightyellow3', height=25, width=self.root.winfo_screenwidth(), relief=SUNKEN)
+        self.drawing_canvas.config(height=1000, width=1000, bg='lightyellow3')
+        self.main_pane_window.config(bg='lightyellow3')
+        self.simulation_canvas.config(height=415, width=830, bg='navajowhite4')
+        self.left_pane_window.config(bg='lightyellow3')
+        self.com_port_frame.config(bg='lightyellow3')
+        self.title_frame.config(bg='lightyellow3')
+        self.title.config(background='lightyellow3')
+        self.line_bar.config( background='lightyellow3')
+        self.port_label.config(foreground='white', background='lightyellow3')
+        self.refresh_button.config(bg='lightyellow3')
+        self.open_btn.config(bg='lightyellow3')
+        self.open_btn.config(bg='lightyellow3')
+        self.open_btn.config(bg='lightyellow3')
+        self.saveas_btn.config(bg='lightyellow3')
+        self.save_btn.config(bg='lightyellow3')
+        self.copy_btn.config(bg='lightyellow3')
+        self.paste_btn.config(bg='lightyellow3')
+        self.cut_btn.config(bg='lightyellow3')
+        self.undo_btn.config(bg='lightyellow3')
+        self.redo_btn.config(bg='lightyellow3')
         self.config=ConfigParser()
-        self.config['DEFAULT']={'background1':'light green','fontcolor':'white','background2':'red','background3':'pink'}
+        self.config['DEFAULT']={'background1':'navajowhite4','background10':'lightyellow3','fontcolor':'white','background9':'lightyellow3','background7':'lightyellow3','background4':'lightyellow3','background8':'lightyellow3','background6':'lightyellow3','background2':'lightyellow3','background5':'lightyellow3','background3':'lightyellow3'}
         self.config['CUSTOM']={'font':'roman'}
 
         with open('config.ini','w') as configfile:
@@ -80,20 +150,42 @@ class windows:
         self.shortcut_bar_frame.config(bg='indigo', height=25, width=self.root.winfo_screenwidth(), relief=SUNKEN)
         self.drawing_canvas.config(height=1000, width=1000, bg='gold')
         self.simulation_canvas.config(height=415, width=830, bg='gold')
+        self.main_pane_window.config(bg='lightyellow')
+        self.left_pane_window.config(bg='lightyellow3')
+        self.com_port_frame.config(bg='lightyellow3')
+        self.title_frame.config(bg='lightyellow')
+        self.title.config(background='#05a8f7')
+        self.line_bar.config( background='lightyellow3')
+        self.port_label.config(foreground='white', background='#424242')
+        self.refresh_button.config(bg='#424242')
+        self.open_btn.config(bg='indigo')
+        self.open_btn.config(bg='indigo')
+        self.open_btn.config(bg='indigo')
+        self.saveas_btn.config(bg='indigo')
+        self.save_btn.config(bg='indigo')
+        self.copy_btn.config(bg='indigo')
+        self.paste_btn.config(bg='indigo')
+        self.cut_btn.config(bg='indigo')
+        self.undo_btn.config(bg='indigo')
+        self.redo_btn.config(bg='indigo')
+
+
+
         config=ConfigParser()
-        config['DEFAULT']={'background1':'brown','fontcolor':'red','background2':'indigo','background3':'gold'}
+        config['DEFAULT']={'background1':'brown','fontcolor':'red','background10':'#424242','background2':'indigo','backround9':'lightyellow','background8':'#05a8f7','background7':'lightyellow','background9':'lightyellow','background3':'gold','background6':'lightyellow','background4':'lightyellow','background5':'lightyellow3'}
         config['CUSTOM']={'font':'arial'}
 
         with open('config.ini','w') as configfile:
             config.write(configfile)
 
-
     def updat(self):
         config=ConfigParser()
-        config['DEFAULT']={'background1':'light green','fontcolor':'red','background2':'idigo','background3':'gold'}
+        config['DEFAULT']={'background1':'light green','fontcolor':'red','background2':'brown','background3':'gold'}
         config['CUSTOM']={'font':'arial'}
         with open('configfont.ini','w') as configfile:
             config.write(configfile)
+
+
 
 
     def getnew(self,parm):
