@@ -63,6 +63,9 @@ class Edit:
         self.root.bind('<Control-o>', self.open_file)
         self.root.bind('<Control-i>', self.import_dxf)
         self.root.bind('<Control-I>', self.import_dxf)
+        self.main_program.FrameClass_handler.drawing_canvas.bind("<Button 1>",self.grab)
+        self.main_program.FrameClass_handler.drawing_canvas.bind("<B1-Motion>",self.drag)
+        self.main_program.FrameClass_handler.drawing_canvas.bind("<MouseWheel>",self.zoomer)
 
     def cut(self, event=None):
         self.gcode_content.event_generate("<<Cut>>")
@@ -193,5 +196,24 @@ class Edit:
             send_thread.start()
         else :
             messagebox.showwarning(title='upload_failure',message='sorry the com port was not available prease check if the usb is connected or another programm is using it')
+
+    def grab(self,event):
+        self._y = event.y
+        self._x = event.x
+
+    def drag(self,event):
+        if (self._y-event.y < 0): self.main_program.FrameClass_handler.drawing_canvas.yview("scroll",1,"units")
+        elif (self._y-event.y > 0): self.main_program.FrameClass_handler.drawing_canvas.yview("scroll",-1,"units")
+        if (self._x-event.x < 0): self.main_program.FrameClass_handler.drawing_canvas.xview("scroll",1,"units")
+        elif (self._x-event.x > 0): self.main_program.FrameClass_handler.drawing_canvas.xview("scroll",-1,"units")
+        self._x = event.x
+        self._y = event.y
+
+    def zoomer(self,event):
+        if (event.delta > 0):
+            self.main_program.FrameClass_handler.drawing_canvas.scale("all", event.x, event.y, 1.1, 1.1)
+        elif (event.delta < 0):
+            self.main_program.FrameClass_handler.drawing_canvas.scale("all", event.x, event.y, 0.9, 0.9)
+        self.main_program.FrameClass_handler.drawing_canvas.configure(scrollregion = self.main_program.FrameClass_handler.drawing_canvas.bbox("all"))
 
 

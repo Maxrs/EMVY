@@ -81,7 +81,7 @@ class FrameClass:
         self.line_bar = Text(self.gcode_frame)
         self.line_bar.config(width=6, height=564, padx=0, background='#6e6e6e', takefocus=0,
                              border=0, state='disabled',
-                             wrap='none', foreground='#ffffff')
+                             wrap='none', foreground='#ffffff', cursor='left_ptr')
         self.line_bar.pack(fill="y", side="left")
 
         # The Gcode Editor inside the gcode frame
@@ -94,7 +94,7 @@ class FrameClass:
         self.gcode_content.bind('<Any-KeyPress>', self.on_content_changed)
 
         # scroll bar
-        self.scrollbar = ttk.Scrollbar(self.gcode_content)
+        self.scrollbar = ttk.Scrollbar(self.gcode_content, cursor='left_ptr')
         self.gcode_content.configure(yscrollcommand=self.scrollbar.set)
         self.scrollbar.config(command=self.gcode_content.yview)
         self.scrollbar.pack(side='right', fill='y')
@@ -156,10 +156,8 @@ class FrameClass:
         self.vertical_bar.pack(side=RIGHT, fill=Y)
         self.vertical_bar.config(command=self.drawing_canvas.yview)
         self.drawing_canvas.configure(yscrollcommand=self.vertical_bar.set)
-        self.drawing_canvas.bind_all("<MouseWheel>",self._on_mousewheel)
 
-    def _on_mousewheel(self, event):
-        self.drawing_canvas.yview_scroll(-1 * (event.delta / 120), "units")
+
     def refresh_ports(self):
         self.new_value_list = self.COMport_handler.serial_ports()
         self.list_of_comports.config(values=self.new_value_list)
